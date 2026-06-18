@@ -1,7 +1,8 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "sonner";
+
 
 export const metadata: Metadata = {
   title: "SalesMS — Sales Management System",
@@ -15,17 +16,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {children}
         <Toaster
           position="top-right"
+          theme="dark"
+          richColors
           toastOptions={{
-            style: {
-              background: "#1a1a1a",
-              color: "#fff",
-              border: "1px solid #2a2a2a",
-              borderRadius: "8px",
-              fontFamily: "var(--font-sans)",
-              fontSize: "14px",
+            classNames: {
+              toast: 'font-sans text-sm shadow-lg border border-white/10 rounded-lg',
+              success: 'bg-emerald-600 text-white border-emerald-500',
+              error: 'bg-red-600 text-white border-red-500',
+              warning: 'bg-amber-500 text-white border-amber-400',
+              info: 'bg-blue-600 text-white border-blue-500',
             },
-            success: { iconTheme: { primary: "#f97316", secondary: "#1a1a1a" } },
-            error: { iconTheme: { primary: "#ef4444", secondary: "#1a1a1a" } },
           }}
         />
       </body>

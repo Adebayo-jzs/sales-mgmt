@@ -1,9 +1,17 @@
 // components/layout/TopBar.tsx
 "use client";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Menu01Icon, Logout01Icon } from "@hugeicons/core-free-icons";
 
-export default function TopBar({ adminName }: { adminName: string }) {
+export default function TopBar({
+  adminName,
+  onOpenNav,
+}: {
+  adminName: string;
+  onOpenNav?: () => void;
+}) {
   const router = useRouter();
 
   async function handleLogout() {
@@ -14,9 +22,26 @@ export default function TopBar({ adminName }: { adminName: string }) {
   }
 
   return (
-    <header className="h-14 bg-surface-900/80 backdrop-blur border-b border-white/5 flex items-center justify-between px-6 shrink-0">
-      <div className="text-sm text-surface-200/40 font-mono">
-        {new Date().toLocaleDateString("en-NG", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+    <header className="h-14 bg-surface-900/80 backdrop-blur border-b border-white/5 flex items-center justify-between px-4 sm:px-6 shrink-0">
+      <div className="flex items-center gap-3">
+        {onOpenNav && (
+          <button
+            type="button"
+            onClick={onOpenNav}
+            className="lg:hidden inline-flex items-center justify-center w-9 h-9 rounded-xl border border-white/8 bg-white/5 hover:bg-white/8 text-surface-200/60 hover:text-white transition-colors"
+            aria-label="Open navigation"
+          >
+            <HugeiconsIcon icon={Menu01Icon} size={16} strokeWidth={1.5} />
+          </button>
+        )}
+        <div className="text-sm text-surface-200/40 font-mono">
+          {new Date().toLocaleDateString("en-NG", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </div>
       </div>
       <div className="flex items-center gap-3">
         <span className="text-sm text-surface-200/50 hidden sm:block">{adminName}</span>
@@ -24,9 +49,7 @@ export default function TopBar({ adminName }: { adminName: string }) {
           onClick={handleLogout}
           className="flex items-center gap-2 text-sm text-surface-200/40 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/5"
         >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-          </svg>
+          <HugeiconsIcon icon={Logout01Icon} size={16} strokeWidth={1.5} />
           Logout
         </button>
       </div>

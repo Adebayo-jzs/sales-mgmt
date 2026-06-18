@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Card, PageHeader, Button, Input, Select, Spinner } from "@/components/ui";
 import { CATEGORIES } from "@/lib/utils";
 import { useParams, useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import Link from "next/link";
 
 export default function EditProductPage() {

@@ -9,6 +9,8 @@ import {
 } from "recharts";
 import type { DashboardData } from "@/types";
 import Link from "next/link";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Add01Icon, DollarCircleIcon, AnalyticsUpIcon, ChartHistogramIcon, ShoppingBag01Icon } from "@hugeicons/core-free-icons";
 
 const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: { value: number; name: string; color: string }[]; label?: string }) => {
   if (active && payload && payload.length) {
@@ -67,51 +69,49 @@ export default function DashboardPage() {
           href="/dashboard/sales/new"
           className="flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-all"
         >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
+          <HugeiconsIcon icon={Add01Icon} size={16} strokeWidth={2} />
           New Sale
         </Link>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         <StatCard
           label="Initial Capital"
           value={formatCurrency(stats.initialCapital)}
           sub="Starting investment"
-          icon={<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
+          icon={<HugeiconsIcon icon={DollarCircleIcon} size={16} strokeWidth={1.5} />}
         />
         <StatCard
           label="Present Value"
           value={formatCurrency(stats.presentValue)}
           sub="Capital + Profit"
-          icon={<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>}
+          icon={<HugeiconsIcon icon={AnalyticsUpIcon} size={16} strokeWidth={1.5} />}
           trend={{ value: `${(((Number(stats.presentValue) - Number(stats.initialCapital)) / Number(stats.initialCapital)) * 100).toFixed(1)}%`, positive: Number(stats.totalNetProfit) >= 0 }}
         />
         <StatCard
           label="Total Profit"
           value={formatCurrency(stats.totalSalesProfit || 0)}
           sub="From sales only"
-          icon={<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
+          icon={<HugeiconsIcon icon={DollarCircleIcon} size={16} strokeWidth={1.5} />}
         />
         <StatCard
           label="Net Profit"
           value={formatCurrency(stats.totalNetProfit)}
           sub="Profit - Expenses"
-          icon={<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>}
+          icon={<HugeiconsIcon icon={ChartHistogramIcon} size={16} strokeWidth={1.5} />}
         />
         <StatCard
           label="Total Expenses"
           value={formatCurrency(stats.totalExpenditure || 0)}
           sub="Recorded expenditures"
-          icon={<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
+          icon={<HugeiconsIcon icon={DollarCircleIcon} size={16} strokeWidth={1.5} />}
         />
         <StatCard
           label="Total Revenue"
           value={formatCurrency(totalRevenue)}
           sub={`${totalSales} sales · ${totalProducts} products`}
-          icon={<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>}
+          icon={<HugeiconsIcon icon={ShoppingBag01Icon} size={16} strokeWidth={1.5} />}
         />
       </div>
 
@@ -173,9 +173,7 @@ export default function DashboardPage() {
               <Link key={sale.id} href={`/dashboard/sales/${sale.id}`} className="flex items-center justify-between px-5 py-3.5 hover:bg-white/3 transition-colors">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-brand-500/10 border border-brand-500/15 flex items-center justify-center">
-                    <svg className="w-3.5 h-3.5 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                    </svg>
+                    <HugeiconsIcon icon={ShoppingBag01Icon} size={14} strokeWidth={2} className="text-brand-400" />
                   </div>
                   <div>
                     <div className="text-sm text-white font-mono">#{sale.id.slice(-8).toUpperCase()} {sale.customerName ? ` · ${sale.customerName}` : ""}</div>

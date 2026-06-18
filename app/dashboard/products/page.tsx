@@ -3,9 +3,11 @@
 import { useEffect, useState, useCallback } from "react";
 import { Card, PageHeader, Button, Badge, Input, Select, EmptyState, Spinner } from "@/components/ui";
 import { CATEGORIES, formatDate } from "@/lib/utils";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import Link from "next/link";
 import type { Product } from "@/types";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Add01Icon, Package01Icon } from "@hugeicons/core-free-icons";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -58,9 +60,7 @@ export default function ProductsPage() {
         action={
           <Link href="/dashboard/products/new">
             <Button>
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
+              <HugeiconsIcon icon={Add01Icon} size={16} strokeWidth={2} />
               Add Product
             </Button>
           </Link>
@@ -91,7 +91,7 @@ export default function ProductsPage() {
           </div>
         ) : products.length === 0 ? (
           <EmptyState
-            icon={<svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>}
+            icon={<HugeiconsIcon icon={Package01Icon} size={24} strokeWidth={1.5} />}
             title="No products found"
             description={search || category ? "Try adjusting your filters" : "Add your first product to get started"}
             action={<Link href="/dashboard/products/new"><Button size="sm">Add Product</Button></Link>}

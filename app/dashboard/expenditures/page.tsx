@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { Card, PageHeader, Button, Input, Spinner, EmptyState } from "@/components/ui";
 import { formatCurrency, formatDateLong } from "@/lib/utils";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import type { Expenditure } from "@/types";
 
 export default function ExpendituresPage() {

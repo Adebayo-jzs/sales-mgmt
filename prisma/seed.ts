@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, type Product } from "@prisma/client";
 import Decimal from "decimal.js";
 import bcrypt from "bcryptjs";
 
@@ -78,7 +78,7 @@ async function main() {
     { name: "Danone Yoghurt Strawberry 385g x12", category: "Yoghurt" },
   ];
 
-  const products = [];
+  const products: Product[] = [];
   for (const p of productData) {
     const slugId = `seed-${p.name.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase()}`;
     const product = await prisma.product.upsert({
@@ -185,8 +185,7 @@ async function main() {
   console.log("✅ Updated business stats");
   console.log("");
   console.log("🎉 Seeding complete!");
-  console.log("   Admin:    admin@salesms.com");
-  console.log("   Password: admin123");
+ 
 }
 
 main()

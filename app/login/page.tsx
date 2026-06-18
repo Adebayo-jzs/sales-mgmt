@@ -2,7 +2,9 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { AnalyticsUpIcon } from "@hugeicons/core-free-icons";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -44,9 +46,7 @@ export default function LoginPage() {
         {/* Header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-500/10 border border-brand-500/20 mb-4">
-            <svg className="w-7 h-7 text-brand-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-            </svg>
+            <HugeiconsIcon icon={AnalyticsUpIcon} className="text-brand-400" size={28} strokeWidth={1.5} />
           </div>
           <h1 className="font-display text-4xl text-white mb-1">SalesMS</h1>
           <p className="text-surface-200/50 text-sm font-mono tracking-wider uppercase">Sales Management System</p>
@@ -102,11 +102,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <div className="mt-6 p-3 bg-surface-850 rounded-lg border border-white/5">
-            <p className="text-xs text-surface-200/40 font-mono">
-              Demo: admin@salesms.com / admin123
-            </p>
-          </div>
+           
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 // components/ui/index.tsx
 import { cn } from "@/lib/utils";
-import { ButtonHTMLAttributes, InputHTMLAttributes, SelectHTMLAttributes, forwardRef } from "react";
+import { ButtonHTMLAttributes, InputHTMLAttributes, SelectHTMLAttributes, forwardRef, cloneElement, isValidElement } from "react";
 
 // Button
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -97,7 +97,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           ref={ref}
           id={selectId}
           className={cn(
-            "w-full bg-surface-850 border rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:ring-1 transition-all appearance-none",
+            "w-full bg-surface-850 border rounded-xl px-4 py-2.5 pr-10 text-white text-sm focus:outline-none focus:ring-1 transition-all appearance-none select-chevron",
             error
               ? "border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
               : "border-white/8 focus:border-brand-500/50 focus:ring-brand-500/20",
@@ -190,17 +190,20 @@ export function StatCard({ label, value, sub, icon, trend }: {
   trend?: { value: string; positive: boolean };
 }) {
   return (
-    <Card className="p-5 card-glow transition-all">
-      <div className="flex items-start justify-between mb-3">
+    <Card className="relative group overflow-hidden p-5 card-glow transition-all">
+      <div className="absolute -right-4 -top-4 p-4 opacity-5 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none text-white z-0">
+        {isValidElement(icon) ? cloneElement(icon, { size: 72 } as any) : icon}
+      </div>
+      <div className="flex items-start justify-between mb-3 z-10 relative">
         <span className="text-xs font-medium text-surface-200/40 uppercase tracking-wider font-mono">{label}</span>
-        {icon && (
-          <div className="w-8 h-8 rounded-lg bg-brand-500/10 border border-brand-500/15 flex items-center justify-center text-brand-400">
+        {/* {icon && (
+          <div className="w-8 h-8 rounded-lg bg-brand-500/10 border border-brand-500/15 flex items-center justify-center text-brand-400 z-10">
             {icon}
           </div>
-        )}
+        )} */}
       </div>
-      <div className="text-2xl font-semibold text-white mb-1">{value}</div>
-      <div className="flex items-center gap-2">
+      <div className="text-xl font-semibold text-white mb-1 z-10 relative">{value}</div>
+      <div className="flex items-center gap-2 z-10 relative">
         {sub && <span className="text-xs text-surface-200/30">{sub}</span>}
         {trend && (
           <span className={cn("text-xs font-mono", trend.positive ? "text-emerald-400" : "text-red-400")}>

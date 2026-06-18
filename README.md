@@ -86,8 +86,7 @@ Open [http://localhost:3000](http://localhost:3000)
 ## Default Credentials
 
 ```
-Email:    admin@salesms.com
-Password: admin123
+
 ```
 
 ---

@@ -9,12 +9,13 @@ const productSchema = z.object({
   category: z.string().min(1).optional(),
 });
 
-export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireAuth();
   if (!auth) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+  const { id } = await params;
   const product = await prisma.product.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       _count: { select: { saleItems: true } },
       saleItems: {
@@ -29,7 +30,7 @@ export async function GET(_req: NextRequest, { params }: { params: { id: string 
 
   // Aggregate stats — manual calculation for correct revenue (sellingPrice × quantity)
   const allItems = await prisma.saleItem.findMany({
-    where: { productId: params.id },
+    where: { productId: id },
     select: { quantity: true, sellingPrice: true, profit: true, sale: { select: { createdAt: true } } },
   });
 
@@ -65,26 +66,28 @@ export async function GET(_req: NextRequest, { params }: { params: { id: string 
   });
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireAuth();
   if (!auth) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+  const { id } = await params;
   const body = await req.json();
   const parsed = productSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
   }
 
-  const product = await prisma.product.update({ where: { id: params.id }, data: parsed.data });
+  const product = await prisma.product.update({ where: { id }, data: parsed.data });
   return NextResponse.json({ data: product });
 }
 
-export async function DELETE(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const auth = await requireAuth();
   if (!auth) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
+  const { id } = await params;
   try {
-    await prisma.product.delete({ where: { id: params.id } });
+    await prisma.product.delete({ where: { id } });
     return NextResponse.json({ message: "Deleted" });
   } catch (err: unknown) {
     // Foreign key constraint — product has associated sales
